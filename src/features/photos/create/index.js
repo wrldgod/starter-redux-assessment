@@ -3,7 +3,7 @@ import { useState } from 'react';
 // Task 2: Import the `useDispatch()` method from the appropriate package
 import { useDispatch } from 'react-redux'; // Task 2
 // Task 3: Import the `addPhoto()` action creator from the photos slice
-import { addPhoto } from '../photos/photos.slice'; // Task 3
+import { addPhoto } from '../photos.slice'; // Task 3
 
 import './create.css';
 

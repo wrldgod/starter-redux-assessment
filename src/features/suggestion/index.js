@@ -1,26 +1,24 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchSuggestion,
-  selectError,
-  selectLoading,
-  // Task 18: Import the `selectSuggestion()` selector from the suggestion slice
-} from './suggestion.slice';
+import { fetchSuggestion, selectSuggestion, selectLoading, selectError } from './suggestion.slice';
 import './suggestion.css';
 
 export default function Suggestion() {
   // Task 19: Call useSelector() with the selectSuggestion() selector
   // The component needs to access the `imageUrl` and `caption` properties of the suggestion object.
-  const loading = useSelector(selectLoading);
-  const error = useSelector(selectError);
+  const loading = useSelector(selectLoading); // Call useSelector with the selectLoading() selector
+  const error = useSelector(selectError); // Call useSelector with the selectError() selector
+  const suggestion = useSelector(selectSuggestion); // Call useSelector with the selectSuggestion() selector
   const dispatch = useDispatch();
 
+  const { imageUrl, caption } = suggestion; // Destructure imageUrl and caption from the suggestion object
+
   useEffect(() => {
-    async function loadSuggestion() {
-      // Task 20: Dispatch the fetchSuggestion() action creator
-    }
-    loadSuggestion();
-  }, [dispatch]);
+    const loadSuggestion = async () => {
+        await dispatch(fetchSuggestion()); // Dispatch the fetchSuggestion action creator
+    };
+    loadSuggestion(); // Call the function to load suggestion
+}, [dispatch]); // Add dispatch as a dependency
 
   let render;
   if (loading) {
@@ -31,8 +29,8 @@ export default function Suggestion() {
     // Task 21: Enable the two JSX lines below needed to display the suggestion on the page
     render = (
       <>
-        {/* <img alt={caption} src={imageUrl} />
-        <p>{imageUrl}</p> */}
+      <img alt={caption} src={imageUrl} /> {/* Display the suggestion image */}
+      <p>{caption}</p> {/* Display the suggestion caption */}
       </>
     );
   }
